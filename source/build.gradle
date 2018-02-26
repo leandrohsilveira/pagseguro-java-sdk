@@ -9,7 +9,11 @@ sourceCompatibility = 1.6
 
 repositories {
     maven {
-        url 'http://repo.mvn.intranet.s2it.com.br/nexus/content/groups/public/'
+    	credentials {
+    		username "$mavenUser"
+            password "$mavenPassword"
+    	}
+        url 'https://desenvolvimento.bry.com.br/nexus/content/groups/public'
     }
 }
 
