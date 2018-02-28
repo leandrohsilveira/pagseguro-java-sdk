@@ -22,10 +22,7 @@ package br.com.uol.pagseguro.api.common.domain.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import br.com.uol.pagseguro.api.common.domain.Document;
 import br.com.uol.pagseguro.api.common.domain.Sender;
-
-import java.util.List;
 
 /**
  * Implementation of {@code Sender}
@@ -42,7 +39,7 @@ public class SenderXML implements Sender {
 
   private AddressXML address;
 
-  private List<DocumentXML> documents;
+  private String cpf;
 
   private String hash;
 
@@ -89,12 +86,14 @@ public class SenderXML implements Sender {
     this.address = address;
   }
 
-  @XmlElement
-  private void setDocuments(List<DocumentXML> documents){ this.documents = documents; }
-
   @Override
-  public List<DocumentXML> getDocuments() {
-    return documents;
+  public String getCpf() {
+    return this.cpf;
+  }
+
+  @XmlElement(name = "cpf")
+  public void setCpf(String cpf) {
+    this.cpf = cpf;
   }
 
   @Override
@@ -112,9 +111,9 @@ public class SenderXML implements Sender {
     return "SenderXML{" +
         "name='" + name + '\'' +
         ", email='" + email + '\'' +
-        ", documents='" + documents + '\'' +
         ", phone=" + phone +
         ", address=" + address +
+        ", cpf='" + cpf + '\'' +
         ", hash='" + hash + '\'' +
         '}';
   }

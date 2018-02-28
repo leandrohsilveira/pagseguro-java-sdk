@@ -54,6 +54,11 @@ public enum PaymentMethodName {
   DEBIT_BANRISUL("DEBITO_BANRISUL"),
 
   /**
+   * Debit HSBC
+   */
+  DEBIT_HSCB("DEBITO_HSBC"),
+
+  /**
    * Bank slip
    */
   BANK_SLIP("BOLETO"),
