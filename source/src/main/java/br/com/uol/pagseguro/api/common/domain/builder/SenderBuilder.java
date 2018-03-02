@@ -20,9 +20,12 @@
  */
 package br.com.uol.pagseguro.api.common.domain.builder;
 
+import java.util.Objects;
+
 import br.com.uol.pagseguro.api.common.domain.Address;
 import br.com.uol.pagseguro.api.common.domain.Phone;
 import br.com.uol.pagseguro.api.common.domain.Sender;
+import br.com.uol.pagseguro.api.common.domain.enums.DocumentType;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 /**
@@ -42,6 +45,8 @@ public final class SenderBuilder implements Builder<Sender> {
 
   private String cpf;
 
+  private String cnpj;
+  
   private String hash;
 
   /**
@@ -116,6 +121,18 @@ public final class SenderBuilder implements Builder<Sender> {
   }
 
   /**
+   * Set cnpj of sender
+   *
+   * @param cnpj CNPJ
+   * @return Builder for sender
+   * @see Sender#getCnpj()
+   */
+  public SenderBuilder withCNPJ(String cnpj) {
+    this.cnpj = cnpj;
+    return this;
+  }
+  
+  /**
    * Set cpf of sender
    *
    * @param cpf Cpf
@@ -123,8 +140,8 @@ public final class SenderBuilder implements Builder<Sender> {
    * @see Sender#getCpf()
    */
   public SenderBuilder withCPF(String cpf) {
-    this.cpf = cpf;
-    return this;
+	  this.cpf = cpf;
+	  return this;
   }
 
   /**
@@ -137,6 +154,26 @@ public final class SenderBuilder implements Builder<Sender> {
   public SenderBuilder withHash(String hash) {
     this.hash = hash;
     return this;
+  }
+  
+  /**
+   * 
+   * Set the cpf or cnpj of sender depending on {@link DocumentType} argument
+   * 
+   * @param type the {@link DocumentType} to set
+   * @param value the value of the document
+   * @return Builder for sender
+   * @see Sender#getCpf()
+   * @see Sender#getCnpj()
+   */
+  public SenderBuilder withDocument(DocumentType type, String value) {
+	  switch(type) {
+		case CPNJ:
+			return withCNPJ(value);
+		case CPF:
+		default:
+			return withCPF(value);
+	  }
   }
 
   /**
@@ -184,6 +221,10 @@ public final class SenderBuilder implements Builder<Sender> {
     @Override
     public String getCpf() {
       return this.senderBuilder.cpf;
+    }
+    
+    public String getCnpj() {
+      return this.senderBuilder.cnpj;
     }
 
     @Override

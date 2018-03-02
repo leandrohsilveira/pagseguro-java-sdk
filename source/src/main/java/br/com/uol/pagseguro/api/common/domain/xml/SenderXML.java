@@ -40,6 +40,8 @@ public class SenderXML implements Sender {
   private AddressXML address;
 
   private String cpf;
+  
+  private String cnpj;
 
   private String hash;
 
@@ -95,6 +97,16 @@ public class SenderXML implements Sender {
   public void setCpf(String cpf) {
     this.cpf = cpf;
   }
+  
+  @Override
+  public String getCnpj() {
+	  return cnpj;
+  }
+  
+  @XmlElement(name = "cnpj")
+  public void setCnpj(String cnpj) {
+	  this.cnpj = cnpj;
+  }
 
   @Override
   public String getHash() {
@@ -114,7 +126,9 @@ public class SenderXML implements Sender {
         ", phone=" + phone +
         ", address=" + address +
         ", cpf='" + cpf + '\'' +
+        ", cnpj='" + cnpj + '\'' +
         ", hash='" + hash + '\'' +
         '}';
   }
+
 }
