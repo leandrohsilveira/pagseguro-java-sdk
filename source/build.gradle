@@ -1,9 +1,10 @@
 group 'br.com.uol.pagseguro'
-version '3.1.1'
+version '3.1.2-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.6
 
@@ -13,19 +14,20 @@ repositories {
     		username "$mavenUser"
             password "$mavenPassword"
     	}
-        url 'https://desenvolvimento.bry.com.br/nexus/content/groups/public'
+        url 'https://nexus.bry.com.br/content/repositories/public'
     }
 }
 
 uploadArchives {
 	repositories {
-        maven {
-            credentials {
-	    		username "$mavenUser"
-	            password "$mavenPassword"
-	    	}
-	        url 'https://desenvolvimento.bry.com.br/nexus/content/repositories/extras'
-        }
+		mavenDeployer {
+			repository(url: 'https://nexus.bry.com.br/content/repositories/thirdparty') {
+				authentication(userName: "$mavenUser", password: "$mavenPassword");			
+			}
+			snapshotRepository(url: 'https://nexus.bry.com.br/content/repositories/bry-snapshots') {
+				authentication(userName: "$mavenUser", password: "$mavenPassword");			
+			}
+		}
     }
 }
 
