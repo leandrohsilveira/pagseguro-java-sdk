@@ -27,127 +27,106 @@ package br.com.uol.pagseguro.api.common.domain;
  */
 public class TransactionStatus {
 
-  private final Integer statusId;
+	private final Integer statusId;
 
-  /**
-   * Constructor
-   *
-   * @param statusId Status id
-   */
-  public TransactionStatus(Integer statusId) {
-    this.statusId = statusId;
-  }
+	/**
+	 * Constructor
+	 *
+	 * @param statusId
+	 *            Status id
+	 */
+	public TransactionStatus(Integer statusId) {
+		this.statusId = statusId;
+	}
 
-  /**
-   * Get status id
-   *
-   * @return Status id
-   */
-  public int getStatusId() {
-    return statusId;
-  }
+	/**
+	 * Get status id
+	 *
+	 * @return Status id
+	 */
+	public int getStatusId() {
+		return statusId;
+	}
 
-  /**
-   * Get status by status id
-   *
-   * @return Status
-   * @see Status
-   */
-  public Status getStatus() {
-    return Status.fromStatusId(statusId);
-  }
+	/**
+	 * Get status by status id
+	 *
+	 * @return Status
+	 * @see Status
+	 */
+	public Status getStatus() {
+		return Status.fromStatusId(statusId);
+	}
 
-  /**
-   * Status enum
-   */
-  public enum Status {
+	/**
+	 * Status enum
+	 */
+	public enum Status {
 
-    /**
-     * INITIAL
-     */
-    INITIAL(1),
+		INITIATED("THE TRANSACTION HAS NOT BEEN COMPLETED", 0),
+		WAITING_PAYMENT("THE PAYMENT HAS NOT YET BEEN PROCESSED", 1),
+		IN_ANALYSIS("THE PAYMENT IS UNDER RISK REVIEW", 2),
+		PAID("THE TRANSACTION PAYMENT HAS BEEN CONFIRMED", 3),
+		AVAILABLE("THE TRANSACTION AMOUNT IS AVAILABLE FOR APPLICATION TO WITHDRAW", 4),
+		IN_DISPUTE("THE TRANSACTION IS IN DISPUTE", 5),
+		REFUNDED("THE TRANSACTION AMOUNT WAS RETURNED TO BUYER", 6),
+		CANCELLED("THE TRANSACTION HAS BEEN CANCELLED", 7),
+		SELLER_CHARGEBACK(
+				"THE PAYMENT WAS CONTESTED BY THE BUYER AND THE TRANSACTION AMOUNT PREVIOUSLY BLOCKED WAS DEBITED FROM YOUR BALANCE",
+				8),
+		CONTESTATION(
+				"THE PAYMENT WAS CONTESTED BY THE BUYER AND THE TRANSACTION AMOUNT WAS BLOCKED. YOU MUST CONTACT OUR CUSTOMER SERVICE",
+				9),
+		UNRECOGNIZED("UNKNOWN STATUS. SEE ONLINE DOCUMENTATION", -1);
 
-    /**
-     * WAITING PAYMENT
-     */
-    WAITING_PAYMENT(2),
+		/**
+		 * Enum description
+		 */
+		private String description;
 
-    /**
-     * IN REVIEW
-     */
-    IN_REVIEW(3),
+		/**
+		 * Enum value
+		 */
+		private Integer statusId;
 
-    /**
-     * APPROVED
-     */
-    APPROVED(4),
+		/**
+		 * Initializes a newly created enum constant of this type with the specified
+		 * arguments
+		 * 
+		 * @param description
+		 *            the description of the enum constant
+		 * @param value
+		 *            the value of the enum constant
+		 */
+		Status(String description, Integer value) {
+			this.description = description;
+			this.statusId = value;
+		}
 
-    /**
-     * AVAILABLE
-     */
-    AVAILABLE(5),
+		/**
+		 * Get status by status id
+		 *
+		 * @param statusId
+		 *            Status id
+		 * @return Status
+		 */
+		public static Status fromStatusId(Integer statusId) {
+			for (Status status : Status.values()) {
+				if (status.statusId != null && status.statusId == statusId) {
+					return status;
+				}
+			}
+			return UNRECOGNIZED;
+		}
 
-    /**
-     * IN DISPUTE
-     */
-    IN_DISPUTE(6),
+		public Integer getStatusId() {
+			return statusId;
+		}
 
-    /**
-     * RETURNED
-     */
-    RETURNED(7),
+		public String getDescription() {
+			return description;
+		}
 
-    /**
-     * CANCELLED
-     */
-    CANCELLED(8),
-
-    /**
-     * SELLER CHARGEBACK
-     */
-    SELLER_CHARGEBACK(9),
-
-    /**
-     * CONTESTATION
-     */
-    CONTESTATION(10),
-
-    /**
-     * PROCESSING REFUND
-     */
-    PROCESSING_REFUND(11),
-
-    /**
-     * UNRECOGNIZED
-     */
-    UNRECOGNIZED(null);
-
-    private Integer statusId;
-
-    /**
-     * Constructor
-     *
-     * @param statusId Status id
-     */
-    Status(Integer statusId) {
-      this.statusId = statusId;
-    }
-
-    /**
-     * Get status by status id
-     *
-     * @param statusId Status id
-     * @return Status
-     */
-    public static Status fromStatusId(Integer statusId) {
-      for (Status status : Status.values()) {
-        if (status.statusId != null && status.statusId == statusId) {
-          return status;
-        }
-      }
-      return UNRECOGNIZED;
-    }
-
-  }
+	}
 
 }

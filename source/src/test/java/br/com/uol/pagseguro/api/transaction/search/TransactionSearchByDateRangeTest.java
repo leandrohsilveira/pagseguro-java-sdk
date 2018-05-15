@@ -74,7 +74,7 @@ public class TransactionSearchByDateRangeTest extends Resource4Test {
                               "<code>code3</code>" +
                               "<reference>reference</reference>" +
                               "<type>1</type>" +
-                              "<status>3</status>" +
+                              "<status>2</status>" +
                               "<paymentMethod>" +
                               "<type>1</type>" +
                               "</paymentMethod>" +
@@ -90,7 +90,7 @@ public class TransactionSearchByDateRangeTest extends Resource4Test {
                               "<code>code4</code>" +
                               "<reference>reference</reference>" +
                               "<type>1</type>" +
-                              "<status>3</status>" +
+                              "<status>2</status>" +
                               "<paymentMethod>" +
                               "<type>1</type>" +
                               "</paymentMethod>" +
@@ -123,7 +123,7 @@ public class TransactionSearchByDateRangeTest extends Resource4Test {
     assertEquals("code3", preApproval.getCode());
     assertEquals("reference", preApproval.getReference());
     assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
-    assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
+    assertEquals(TransactionStatus.Status.IN_ANALYSIS, preApproval.getStatus().getStatus());
     assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
         preApproval.getPaymentMethod().getType());
     assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
@@ -143,7 +143,7 @@ public class TransactionSearchByDateRangeTest extends Resource4Test {
     assertEquals("code4", preApproval.getCode());
     assertEquals("reference", preApproval.getReference());
     assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
-    assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
+    assertEquals(TransactionStatus.Status.IN_ANALYSIS, preApproval.getStatus().getStatus());
     assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
         preApproval.getPaymentMethod().getType());
     assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
